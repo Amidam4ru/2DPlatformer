@@ -7,10 +7,10 @@ public class ReadingController : MonoBehaviour
     private PlayerController _controller;
     private float _movementInput;
 
-    public float MovementInput => _movementInput;
-
     public event Action OnJumped;
     public event Action<bool> OnMoved;
+
+    public float MovementInput => _movementInput;
 
     private void Awake()
     {

@@ -23,13 +23,13 @@ public class AnimationManagement : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerMovement.OnFly += ControlFlight;
+        _playerMovement.OnFlying += ControlFlight;
         _controller.OnMoved += ControlMove;
     }
 
     private void OnDisable()
     {
-        _playerMovement.OnFly -= ControlFlight;
+        _playerMovement.OnFlying -= ControlFlight;
         _controller.OnMoved -= ControlMove;
     }
 
@@ -62,13 +62,6 @@ public class AnimationManagement : MonoBehaviour
 
     private bool IsFall()
     {
-        if (_rigidbody.velocity.y > 0)
-        {
-            return false;
-        }
-        else 
-        {
-            return true;
-        }
+        if (_rigidbody.velocity.y < 0) return true; return false;
     }
 }

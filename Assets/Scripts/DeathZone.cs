@@ -8,7 +8,7 @@ public class DeathZone : MonoBehaviour
     {
         if (collision.TryGetComponent(out Player player))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            player.Die();
         }
     }
 }

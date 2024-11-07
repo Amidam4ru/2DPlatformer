@@ -8,8 +8,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.transform.TryGetComponent(out Player player))
         {
-            Destroy(player.gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            player.Die();
         }
     }
 }

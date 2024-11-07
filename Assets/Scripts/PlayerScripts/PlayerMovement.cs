@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isOnPlatform;
     private SpriteRenderer _spriteRenderer;
 
-    public event Action<bool> OnFly;
+    public event Action<bool> OnFlying;
 
     private void Awake()
     {
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     {
         SetRotation();
         _isOnPlatform = IsOnPlatform();
-        OnFly?.Invoke(_isOnPlatform);
+        OnFlying?.Invoke(_isOnPlatform);
     }
 
 
