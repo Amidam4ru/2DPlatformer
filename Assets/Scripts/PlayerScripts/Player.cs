@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public event Action OnDied;
+
     public void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        OnDied?.Invoke();
     }
 }

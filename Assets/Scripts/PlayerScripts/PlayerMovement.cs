@@ -1,9 +1,9 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(ReadingController))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(PlayerAnimator))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -15,8 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private bool _isOnPlatform;
     private SpriteRenderer _spriteRenderer;
-
-    public event Action<bool> OnFlying;
+    private PlayerAnimator _animator;
 
     private void Awake()
     {
@@ -24,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _controller = GetComponent<ReadingController>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<PlayerAnimator>();
     }
 
     private void OnEnable()
@@ -40,7 +40,8 @@ public class PlayerMovement : MonoBehaviour
     {
         SetRotation();
         _isOnPlatform = IsOnPlatform();
-        OnFlying?.Invoke(_isOnPlatform);
+
+        ManageAnimations();
     }
 
 
@@ -83,6 +84,33 @@ public class PlayerMovement : MonoBehaviour
         else if (_controller.MovementInput < 0)
         {
             _spriteRenderer.flipX = true;
+        }
+    }
+
+    private bool IsFall()
+    {
+        if (_rigidbody.velocity.y < 0) return true; return false;
+    }
+
+    private void ManageAnimations()
+    {
+        if (_isOnPlatform == false)
+        {
+            _animator.ControlFlight(true, IsFall());
+        }
+        else
+        {
+            _animator.ControlFlight(false, IsFall());
+        }
+
+
+        if (_rigidbody.velocity.x != 0)
+        {
+            _animator.Move(true);
+        }
+        else
+        {
+            _animator.Move(false);
         }
     }
 }
