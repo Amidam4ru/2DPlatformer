@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(PlayerDetection))]
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private List<Transform> _targets;
@@ -17,6 +18,7 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Vector2 _direction;
     private SpriteRenderer _spriteRenderer;
+    private PlayerDetection _playerDetection;
 
     private void Awake()
     {
@@ -26,16 +28,18 @@ public class EnemyMovement : MonoBehaviour
         _targetCounter = 0;
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _playerDetection = GetComponent<PlayerDetection>();
     }
 
     private void Update()
     {
-        _direction = (_target - new Vector2(transform.position.x, transform.position.y)).normalized;
-        transform.position += (Vector3)(_direction * _speed * Time.deltaTime);
-
-        if (Math.Abs(transform.position.x - _target.x) <= _acceptableDistance)
+        if (_playerDetection.PlayerPosition != null)
         {
-            ChangeTarget();
+            Move(_playerDetection.PlayerPosition.position);
+        }
+        else
+        {
+            MoveAlongTargets();
         }
     }
 
@@ -49,8 +53,9 @@ public class EnemyMovement : MonoBehaviour
         }
 
         _target = _targetsPosition[_targetCounter];
-        _spriteRenderer.flipX = !_spriteRenderer.flipX;
     }
+
+
 
     private void SetTargets()
     {
@@ -58,5 +63,23 @@ public class EnemyMovement : MonoBehaviour
         {
             _targetsPosition.Add(target.position);
         }
+    }
+
+    private void MoveAlongTargets()
+    {
+        Move(_target);
+
+        if (Math.Abs(transform.position.x - _target.x) <= _acceptableDistance)
+        {
+            ChangeTarget();
+        }
+    }
+
+    private void Move(Vector2 target)
+    {
+        _direction = (target - new Vector2(transform.position.x, transform.position.y)).normalized;
+        transform.position += (Vector3)(_direction * _speed * Time.deltaTime);
+
+        _spriteRenderer.flipX = transform.position.x < target.x;
     }
 }

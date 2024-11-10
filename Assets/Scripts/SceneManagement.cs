@@ -20,6 +20,7 @@ public class SceneManagement : MonoBehaviour
 
     private void Reload()
     {
+        Debug.ClearDeveloperConsole();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
