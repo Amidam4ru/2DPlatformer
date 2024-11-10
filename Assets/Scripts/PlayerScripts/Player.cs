@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public event Action OnDied;
+    public event Action Died;
 
     public void Die()
     {
-        OnDied?.Invoke();
+        Died?.Invoke();
     }
 }

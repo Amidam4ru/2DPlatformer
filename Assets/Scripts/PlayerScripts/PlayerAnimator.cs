@@ -19,13 +19,6 @@ public class PlayerAnimator : MonoBehaviour
     {
         _animator.SetBool(PlayerAnimatorData.Params.IsInAir, isInAir);
 
-        if (isFall == false)
-        {
-            _animator.SetBool(PlayerAnimatorData.Params.IsFall, false);
-        }
-        else
-        {
-            _animator.SetBool(PlayerAnimatorData.Params.IsFall, true);
-        }
+        _animator.SetBool(PlayerAnimatorData.Params.IsFall, isFall);
     }
 }

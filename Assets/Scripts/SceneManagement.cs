@@ -4,19 +4,27 @@ using UnityEngine.SceneManagement;
 public class SceneManagement : MonoBehaviour
 {
     [SerializeField] private Player _player;
+    [SerializeField] private Finish _finish;
 
     private void OnEnable()
     {
-        _player.OnDied += Reload;
+        _player.Died += Reload;
+        _finish.PlayerWon += Pause;
     }
 
     private void OnDisable()
     {
-        _player.OnDied -= Reload;
+        _player.Died -= Reload;
+        _finish.PlayerWon -= Pause;
     }
 
     private void Reload()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void Pause()
+    {
+        Time.timeScale = 0f;
     }
 }

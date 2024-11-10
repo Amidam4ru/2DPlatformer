@@ -7,8 +7,8 @@ public class ReadingController : MonoBehaviour
     private PlayerController _controller;
     private float _movementInput;
 
-    public event Action OnJumped;
-    public event Action<bool> OnMoved;
+    public event Action Jumped;
+    public event Action<bool> Moved;
 
     public float MovementInput => _movementInput;
 
@@ -41,18 +41,11 @@ public class ReadingController : MonoBehaviour
     {
         _movementInput = context.ReadValue<float>();
 
-        if (context.performed)
-        {
-            OnMoved?.Invoke(true);
-        }
-        else
-        {
-            OnMoved?.Invoke(false);
-        }
+        Moved?.Invoke(context.performed);
     }
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        OnJumped?.Invoke();
+        Jumped?.Invoke();
     }
 }

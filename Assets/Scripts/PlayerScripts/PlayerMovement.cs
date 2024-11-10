@@ -28,19 +28,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        _controller.OnJumped += Jump;
+        _controller.Jumped += Jump;
     }
 
     private void OnDisable()
     {
-        _controller.OnJumped -= Jump;
+        _controller.Jumped -= Jump;
     }
 
     private void Update()
     {
-        SetRotation();
         _isOnPlatform = IsOnPlatform();
-
+        SetRotation();
         ManageAnimations();
     }
 
@@ -77,40 +76,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetRotation()
     {
-        if (_controller.MovementInput > 0)
+        if (_controller.MovementInput != 0)
         {
-            _spriteRenderer.flipX = false;
-        }
-        else if (_controller.MovementInput < 0)
-        {
-            _spriteRenderer.flipX = true;
+            _spriteRenderer.flipX = _controller.MovementInput < 0;
         }
     }
 
     private bool IsFall()
     {
-        if (_rigidbody.velocity.y < 0) return true; return false;
+        return _rigidbody.velocity.y < 0;
     }
 
     private void ManageAnimations()
     {
-        if (_isOnPlatform == false)
-        {
-            _animator.ControlFlight(true, IsFall());
-        }
-        else
-        {
-            _animator.ControlFlight(false, IsFall());
-        }
+        _animator.ControlFlight(!_isOnPlatform, IsFall());
 
-
-        if (_rigidbody.velocity.x != 0)
-        {
-            _animator.Move(true);
-        }
-        else
-        {
-            _animator.Move(false);
-        }
+        _animator.Move(_rigidbody.velocity.x != 0);
     }
 }

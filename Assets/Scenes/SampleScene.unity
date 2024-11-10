@@ -831,6 +831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1565734223}
+  _finish: {fileID: 124908888}
 --- !u!4 &1137865038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8101585296076138694, guid: fb0fd1519aa595747b6681f0572abe86, type: 3}
