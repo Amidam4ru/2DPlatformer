@@ -25,6 +25,5 @@ public class PlayserScore : MonoBehaviour
     private void AddScore()
     {
         _numberOfPoints++;
-        Debug.Log(_numberOfPoints);
     }
 }

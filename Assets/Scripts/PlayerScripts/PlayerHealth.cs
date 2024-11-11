@@ -17,7 +17,6 @@ public class PlayerHealth : MonoBehaviour
         {
             _value += value;
             _value = Math.Clamp(_value, _minValue, _maxValue);
-            Debug.Log("Жизни: " + _value);
         }
     }
 
@@ -27,7 +26,6 @@ public class PlayerHealth : MonoBehaviour
         {
             _value -= damage;
             _value = Math.Clamp(_value, _minValue, _maxValue);
-            Debug.Log("Урон" + _value);
 
             if (_value == 0)
             {

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerDetector : MonoBehaviour
@@ -7,42 +8,55 @@ public class PlayerDetector : MonoBehaviour
     private Transform _playerPosition;
     private Vector2[] _raysDirections;
     private bool _isPlayerDetected;
+    private Coroutine _playerDetectCorutine;
+    private WaitForEndOfFrame _waitForEndOfFrame;
+
+    public Transform PlayerPosition => _playerPosition;
 
     private void Awake()
     {
         _raysDirections = new Vector2[2] {Vector2.right, Vector2.left };
         _isPlayerDetected = false;
+        _waitForEndOfFrame = new WaitForEndOfFrame();
     }
 
-    public Transform PlayerPosition => _playerPosition;
-
-    private void FixedUpdate()
+    private void Start()
     {
-        _isPlayerDetected = false;
+        _playerDetectCorutine = StartCoroutine(DetectPlayer());
+    }
 
-        foreach (Vector2 direction in _raysDirections)
+    private IEnumerator DetectPlayer()
+    {
+        while (true)
         {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, _playerCheckLength);
-            Debug.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y) + direction * _playerCheckLength, Color.red);
+            _isPlayerDetected = false;
 
-            foreach (RaycastHit2D hit in hits)
+            foreach (Vector2 direction in _raysDirections)
             {
-                if (hit.collider != null && hit.collider.TryGetComponent(out Player player))
-                {
-                    _playerPosition = player.transform;
-                    _isPlayerDetected = true;
+                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, _playerCheckLength);
+                Debug.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y) + direction * _playerCheckLength, Color.red);
 
-                    break;
+                foreach (RaycastHit2D hit in hits)
+                {
+                    if (hit.collider != null && hit.collider.TryGetComponent(out Player player))
+                    {
+                        _playerPosition = player.transform;
+                        _isPlayerDetected = true;
+
+                        break;
+                    }
                 }
+
+                if (_isPlayerDetected)
+                    break;
             }
 
-            if (_isPlayerDetected)
-                break;
-        }
+            if (_isPlayerDetected == false)
+            {
+                _playerPosition = null;
+            }
 
-        if (!_isPlayerDetected)
-        {
-            _playerPosition = null;
+            yield return _waitForEndOfFrame;
         }
     }
 }
