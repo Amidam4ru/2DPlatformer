@@ -1,15 +1,15 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CoinCollector))]
+[RequireComponent(typeof(RegistrationOfPlayerCollisions))]
 public class PlayserScore : MonoBehaviour
 {
     private int _numberOfPoints;
-    private CoinCollector _collector;
+    private RegistrationOfPlayerCollisions _collector;
 
     private void Awake()
     {
         _numberOfPoints = 0;
-        _collector = GetComponent<CoinCollector>();
+        _collector = GetComponent<RegistrationOfPlayerCollisions>();
     }
 
     private void OnEnable()

@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 6104605025771469195}
   - component: {fileID: 5980941686827285212}
   - component: {fileID: 2418447363925162144}
-  - component: {fileID: -8047029323384723304}
+  - component: {fileID: 3734143468798259862}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887e3c1b245751a4b812bee63ac6ec26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 20
 --- !u!114 &5980941686827285212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 6104605025771469195}
---- !u!114 &-8047029323384723304
+--- !u!114 &3734143468798259862
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,7 +333,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8184799371455224496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 376ab187bb52e044dad49c653e15c40b, type: 3}
+  m_Script: {fileID: 11500000, guid: b34ff342023ab664dbd364c8f211f566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerCheckLength: 3

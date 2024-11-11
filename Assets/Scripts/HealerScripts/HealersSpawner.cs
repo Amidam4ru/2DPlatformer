@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealersSpawnerManager : MonoBehaviour
+public class HealersSpawner : MonoBehaviour
 {
-    [SerializeField] private List<HealerSpawner> _healerSpawners;
+    [SerializeField] private List<HealerSpawnPosition> _healerSpawners;
     [SerializeField] private Healer _healerPrefab;
     [SerializeField] private int _numberOfHealer;
 
@@ -19,7 +19,7 @@ public class HealersSpawnerManager : MonoBehaviour
     {
         for (int i = 0; i < _numberOfHealer; i++)
         {
-            HealerSpawner healerSpawner = _healerSpawners[Random.Range(0, _healerSpawners.Count)];
+            HealerSpawnPosition healerSpawner = _healerSpawners[Random.Range(0, _healerSpawners.Count)];
             Healer newHealer = Instantiate(_healerPrefab, healerSpawner.transform);
             _healerSpawners.Remove(healerSpawner);
         }

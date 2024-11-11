@@ -5,9 +5,9 @@ public class DeathZone : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent(out PlayerHealth player))
         {
-            player.TakeDamage(player.Health);
+            player.TakeDamage(player.Value);
         }
     }
 }

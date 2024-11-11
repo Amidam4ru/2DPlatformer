@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(PlayerDetection))]
+[RequireComponent(typeof(PlayerDetector))]
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private List<Transform> _targets;
@@ -13,12 +12,10 @@ public class EnemyMovement : MonoBehaviour
 
     private List<Vector2> _targetsPosition;
     private Vector2 _target;
-    private float _distanceToTarget;
     private int _targetCounter;
-    private Rigidbody2D _rigidbody;
     private Vector2 _direction;
     private SpriteRenderer _spriteRenderer;
-    private PlayerDetection _playerDetection;
+    private PlayerDetector _playerDetection;
 
     private void Awake()
     {
@@ -26,9 +23,8 @@ public class EnemyMovement : MonoBehaviour
         SetTargets();
         _target = _targetsPosition[0];
         _targetCounter = 0;
-        _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _playerDetection = GetComponent<PlayerDetection>();
+        _playerDetection = GetComponent<PlayerDetector>();
     }
 
     private void Update()

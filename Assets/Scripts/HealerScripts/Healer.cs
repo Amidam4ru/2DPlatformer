@@ -4,13 +4,11 @@ using UnityEngine;
 public class Healer : MonoBehaviour
 {
     [SerializeField] private int _numberOfHeal = 40;
+    
+    public int NumberOfHeal => _numberOfHeal;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Remove()
     {
-        if (collision.transform.TryGetComponent(out Player player))
-        {
-            player.AddHealth(_numberOfHeal);
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }
