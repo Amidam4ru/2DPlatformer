@@ -68,12 +68,7 @@ public class PlayerMover : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(_platformCheck.position, Vector2.down, _platformCheckLength);
 
-        if (hit.collider != null && hit.collider.TryGetComponent(out Platform platform))
-        {
-            return true;
-        }
-
-        return false;
+        return hit.collider != null && hit.collider.TryGetComponent(out Platform platform);
     }
 
     private void SetRotation()

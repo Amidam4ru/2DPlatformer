@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Coin : Collectible
 {
-    public void Remove()
-    {
-        Destroy(gameObject);
-    }
+    [SerializeField] private int _value = 1;
+
+    public override int Value => _value;
 }
